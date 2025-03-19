@@ -1,5 +1,8 @@
 package ex13_homework;
 
+import java.util.Random;
+import java.util.Scanner;
+
 public class GameMain {
 	public static void main(String[] args) {
 		 
@@ -16,10 +19,47 @@ public class GameMain {
 		// 정답
 		// 결과 : 24초...
 		
+		
+		int count = 0;  // 정답 갯수 세는 변수
+		
+		Scanner sc = new Scanner(System.in);
+		Random rnd = new Random();
+		
+		
+		TimeThread tt =new TimeThread();
+		tt.start();
+		
+		
+		while( true ) {
+			int n1 = rnd.nextInt(100) + 1;
+			int n2 = rnd.nextInt(100) + 1;
+			System.out.printf("%d + %d = ", n1, n2);
+			
+			int res = sc.nextInt();
+			
+			
+			// 정,오답 판단
+			if( res == n1 + n2 ) {
+				System.out.println("정답!!");
+				count++;
+			}else {
+				System.out.println("오답...");
+			}
+			
+			
+			// 게임 종료 여부
+			if( count == 2 ) {
+				tt.setPlaying(false);  // isPlaying이 false이므로 타임스레드의 while문을 종료한다.
+				System.out.println("결과 : " + tt.getTimer() +  "초");
+				break;
+			}
+			
+			
+			
+		} // while
 	
 		
-		Game g = new Game();
-		g.start();
+		
 		
 		
 		
